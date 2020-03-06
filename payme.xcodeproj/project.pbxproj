@@ -13,9 +13,11 @@
 		3A916864240378800014FFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A916863240378800014FFF6 /* Assets.xcassets */; };
 		3A916867240378800014FFF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A916866240378800014FFF6 /* Preview Assets.xcassets */; };
 		3A91686A240378800014FFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A916868240378800014FFF6 /* LaunchScreen.storyboard */; };
+		968EBF9F36990544725940D7 /* Pods_payme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38BBE67A33541727B940B9D1 /* Pods_payme.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38BBE67A33541727B940B9D1 /* Pods_payme.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_payme.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A91685A2403787F0014FFF6 /* payme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = payme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A91685D2403787F0014FFF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A91685F2403787F0014FFF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		3A916866240378800014FFF6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A916869240378800014FFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A91686B240378800014FFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2DAC1B8F653A127BAE62230 /* Pods-payme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payme.debug.xcconfig"; path = "Target Support Files/Pods-payme/Pods-payme.debug.xcconfig"; sourceTree = "<group>"; };
+		E7CD6B7CB803A33102008879 /* Pods-payme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payme.release.xcconfig"; path = "Target Support Files/Pods-payme/Pods-payme.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968EBF9F36990544725940D7 /* Pods_payme.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				3A91685C2403787F0014FFF6 /* payme */,
 				3A91685B2403787F0014FFF6 /* Products */,
+				FEF64117EB3A8212658EA84C /* Pods */,
+				4776716B999CDFA9E5DF19FF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +82,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4776716B999CDFA9E5DF19FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38BBE67A33541727B940B9D1 /* Pods_payme.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FEF64117EB3A8212658EA84C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D2DAC1B8F653A127BAE62230 /* Pods-payme.debug.xcconfig */,
+				E7CD6B7CB803A33102008879 /* Pods-payme.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +107,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A91686E240378800014FFF6 /* Build configuration list for PBXNativeTarget "payme" */;
 			buildPhases = (
+				526A92BE12225932D5E237CB /* [CP] Check Pods Manifest.lock */,
 				3A9168562403787F0014FFF6 /* Sources */,
 				3A9168572403787F0014FFF6 /* Frameworks */,
 				3A9168582403787F0014FFF6 /* Resources */,
+				DD7F342D2D2C72DAB34C2856 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,6 +167,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		526A92BE12225932D5E237CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-payme-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD7F342D2D2C72DAB34C2856 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-payme/Pods-payme-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-payme/Pods-payme-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-payme/Pods-payme-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3A9168562403787F0014FFF6 /* Sources */ = {
@@ -282,6 +351,7 @@
 		};
 		3A91686F240378800014FFF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2DAC1B8F653A127BAE62230 /* Pods-payme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +372,7 @@
 		};
 		3A916870240378800014FFF6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E7CD6B7CB803A33102008879 /* Pods-payme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
