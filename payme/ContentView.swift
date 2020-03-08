@@ -69,10 +69,8 @@ public class WalletAction
         var address: String
     }
     
-    static func moveXrp(source: Wallet, target: String, drops: String)
+    static func moveXrp(source: Wallet, target: String, drops: String) -> String
     {
-        //let remoteURL = "alpha.xrp.xpring.io:50051"
-        
         let remoteURL = "main.xrp.xpring.io:50051"
         
         let xpringClient = XpringClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
@@ -87,8 +85,9 @@ public class WalletAction
         
         let success = status == TransactionStatus.succeeded
         
-        print(success)
+        let retval = (txn: transactionHash.description, status: success.description)
         
+        return "[txn: \(retval.txn) status: \(retval.status)] \r\n"
     }
     
 }
@@ -103,6 +102,7 @@ struct ContentView: View {
     @State private var targetid: String = ""
     @State private var amount: String = ""
     @State private var selectedMethod = 0
+    @State private var results = ""
     
     init()
     {
@@ -135,14 +135,18 @@ struct ContentView: View {
                     
                     
                     Section(header: Text("Amount").bold()) {
-                        Picker(selection: $selectedMethod, label: Text("Method")) {
+                        
+                        Picker(selection: $selectedMethod, label: Text("Payment Method")) {
                             ForEach(0 ..< methods.count) {
                                 Text(self.methods[$0])
                             }
-                            
                         }
+                            
+                        .navigationBarTitle("$payme")
                         TextField("💰 Amount", text: $amount)
+                        
                     }
+                    
                     
                     Section(header: Text("Actions").bold()) {
                         Button(action: {
@@ -155,20 +159,23 @@ struct ContentView: View {
                                     
                                     targetAddress in
                                     
-                                    WalletAction.moveXrp(source: senderWallet, target: targetAddress, drops: self.amount)
+                                    let results = WalletAction.moveXrp(source: senderWallet, target: targetAddress, drops: self.amount)
+                                    
+                                    self.results.append(results)
                                     
                                 }
                             }
                         })
                         {
                             Text("💸 Move").font(Font.system(size: 20, design: .default))
-                        }
+                        }.disabled(self.seed.isEmpty || self.targetid.isEmpty || self.amount.isEmpty)
                     }
                     Section(header: Text("Results").bold()) {
-                        Text("")
+                        Text(results)
                     }
+                    .navigationBarTitle(Text("$payme"))
                 }
-                .navigationBarTitle(Text("$payme"))
+                
             }
         }
     }
