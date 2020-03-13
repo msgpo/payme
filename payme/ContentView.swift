@@ -48,7 +48,7 @@ public class WalletAction
         
         var request = URLRequest(url: url)
         
-        request.addValue("application/xrp+json", forHTTPHeaderField: "Accept")
+        request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: request) {
             
@@ -75,11 +75,9 @@ public class WalletAction
         
         let xpringClient = XpringClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
         
-        let xAddress = Utils.encode(classicAddress: target)!
-        
         let udrops = UInt64(drops)!
         
-        let transactionHash = try! xpringClient.send(udrops, to: xAddress, from: source)
+        let transactionHash = try! xpringClient.send(udrops, to: target, from: source)
         
         let status = try! xpringClient.getTransactionStatus(for: transactionHash)
         
@@ -103,6 +101,7 @@ struct ContentView: View {
     @State private var amount: String = ""
     @State private var selectedMethod = 0
     @State private var results = ""
+    @State private var isToggle : Bool = true
     
     init()
     {
@@ -133,6 +132,14 @@ struct ContentView: View {
                         }
                     }
                     
+                    
+                    Section(header: Text("Where").bold()) {
+                        VStack {
+                            Toggle(isOn: $isToggle){
+                                Text("Mainnet")
+                            }
+                        }
+                    }
                     
                     Section(header: Text("Amount").bold()) {
                         
