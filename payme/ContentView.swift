@@ -75,7 +75,7 @@ public class WalletAction
         
         let xpringClient = XpringClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
         
-        let udrops = UInt64(drops)!
+        let udrops = UInt64(drops)! * 1000000
         
         let transactionHash = try! xpringClient.send(udrops, to: target, from: source)
         
