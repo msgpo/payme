@@ -3,7 +3,7 @@
 //  payme
 //
 //  Created by Doug Purdy on 2/23/20.
-//  Copyright © 2020 sunyata tools. All rights reserved.
+//  Copyright © 2020 Humanity. All rights reserved.
 //
 
 import SwiftUI
@@ -11,7 +11,6 @@ import XpringKit
 
 public class WalletAction
 {
-    
     static func getXrpWallet(payid: String, seed: String, completion: (_ wallet: Wallet) -> Void)
     {
         let seedWallet = Wallet(seed: seed)!
@@ -28,7 +27,7 @@ public class WalletAction
         if(isPayID)
         {
             let httpPrefix = "https://"
-            let httpPostfix = "/.well-known/pay"
+            let httpPostfix = "/.well-known/pay?" + Float.random(in: 0 ..< 1).description
             
             if(!containsPath)
             {
@@ -92,7 +91,7 @@ public class WalletAction
 
 struct ContentView: View {
     
-    //#todo: get these from the source payid or do match?
+    //#todo: get these from the payid provider
     var methods = ["XRP", "ILP/XRP", "ILP/BTC", "ILP/ETH"]
     
     @State private var payid: String = ""
@@ -102,11 +101,6 @@ struct ContentView: View {
     @State private var selectedMethod = 0
     @State private var results = ""
     @State private var isToggle : Bool = true
-    
-    init()
-    {
-        
-    }
     
     var body: some View {
         
