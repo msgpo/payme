@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+struct NavButtonStyle: ButtonStyle {
+    let backgroundColor: Color
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .padding()
+            .background(backgroundColor)
+            .cornerRadius(40)
+            .foregroundColor(Color.white)
+            .padding(20)
+    }
+        
+}
 
 struct ContentView: View {
     //#todo: get these from the payid provider
@@ -19,18 +33,53 @@ struct ContentView: View {
                 VStack {
                     Text("How do you want to $payme?")
                         .font(.title)
-                
-                    List(methods, id: \.self) { method in
-                        if (method == "XRP") {
-                            NavigationLink(destination: XrplView()) {
-                                Text(method)
-                            }
-                        } else {
-                            NavigationLink(destination: IlpView()) {
-                                Text(method)
+                        .padding(.bottom, 20)
+                        
+            
+                    ForEach(methods, id: \.self) { method in
+                        Button(action: {}) {
+                            VStack {
+                                if (method == "XRP") {
+                                    NavigationLink(destination: XrplView()) {
+                                        HStack {
+                                            Image("x")
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 30, height: 30)
+                                                
+                                            Text(method)
+                                                .fontWeight(.bold)
+                                        }
+                                    }.buttonStyle(
+                                        NavButtonStyle(
+                                            backgroundColor: Color(UIColor.systemBlue)
+                                        )
+                                    )
+                                
+                                } else {
+                                    NavigationLink(destination: IlpView()) {
+                                        HStack {
+                                            Image("interledger")
+                                                .renderingMode(.original)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 30, height: 30)
+                                                .clipShape(Circle())
+                                            Text(method)
+                                                .fontWeight(.bold)
+                                        }
+                                    }.buttonStyle(
+                                        NavButtonStyle(
+                                            backgroundColor: Color(UIColor.systemGreen)
+                                        )
+                                    )
+                                }
                             }
                         }
                     }
+                    
+                    Spacer()
+
                 }
             }
         }
