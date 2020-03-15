@@ -23,7 +23,7 @@ PODS:
     - gRPC-Core (~> 1.23.0)
     - SwiftProtobuf (~> 1.7.0)
   - SwiftProtobuf (1.7.0)
-  - XpringKit (1.4.0):
+  - XpringKit (1.5.0):
     - BigInt
     - SwiftGRPC
     - SwiftProtobuf
@@ -48,8 +48,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   SwiftGRPC: f8fcfecb547c96cc6913de619f95fa3cd09838ee
   SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
-  XpringKit: 832bb3d69c7d5eda059205c3b9fac3f1d7b6687f
+  XpringKit: cb115e26c9fcd505517df48648066c8695df1b13
 
 PODFILE CHECKSUM: b38c6067158b48870480a9ff1af038c5ec309526
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.0

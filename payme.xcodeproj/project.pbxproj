@@ -13,6 +13,9 @@
 		3A916864240378800014FFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A916863240378800014FFF6 /* Assets.xcassets */; };
 		3A916867240378800014FFF6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A916866240378800014FFF6 /* Preview Assets.xcassets */; };
 		3A91686A240378800014FFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A916868240378800014FFF6 /* LaunchScreen.storyboard */; };
+		84BE3960241C37F80039BEC9 /* IlpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE395F241C37F80039BEC9 /* IlpView.swift */; };
+		84BE3962241C395B0039BEC9 /* XrplView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE3961241C395B0039BEC9 /* XrplView.swift */; };
+		84DBE067241D7F8800D5617B /* IlpModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBE066241D7F8800D5617B /* IlpModalView.swift */; };
 		968EBF9F36990544725940D7 /* Pods_payme.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38BBE67A33541727B940B9D1 /* Pods_payme.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +30,9 @@
 		3A916866240378800014FFF6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A916869240378800014FFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A91686B240378800014FFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84BE395F241C37F80039BEC9 /* IlpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlpView.swift; sourceTree = "<group>"; };
+		84BE3961241C395B0039BEC9 /* XrplView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XrplView.swift; sourceTree = "<group>"; };
+		84DBE066241D7F8800D5617B /* IlpModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IlpModalView.swift; sourceTree = "<group>"; };
 		D2DAC1B8F653A127BAE62230 /* Pods-payme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payme.debug.xcconfig"; path = "Target Support Files/Pods-payme/Pods-payme.debug.xcconfig"; sourceTree = "<group>"; };
 		E7CD6B7CB803A33102008879 /* Pods-payme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-payme.release.xcconfig"; path = "Target Support Files/Pods-payme/Pods-payme.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +78,9 @@
 				3A916868240378800014FFF6 /* LaunchScreen.storyboard */,
 				3A91686B240378800014FFF6 /* Info.plist */,
 				3A916865240378800014FFF6 /* Preview Content */,
+				84BE395F241C37F80039BEC9 /* IlpView.swift */,
+				84BE3961241C395B0039BEC9 /* XrplView.swift */,
+				84DBE066241D7F8800D5617B /* IlpModalView.swift */,
 			);
 			path = payme;
 			sourceTree = "<group>";
@@ -216,8 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DBE067241D7F8800D5617B /* IlpModalView.swift in Sources */,
+				84BE3960241C37F80039BEC9 /* IlpView.swift in Sources */,
 				3A91685E2403787F0014FFF6 /* AppDelegate.swift in Sources */,
 				3A9168602403787F0014FFF6 /* SceneDelegate.swift in Sources */,
+				84BE3962241C395B0039BEC9 /* XrplView.swift in Sources */,
 				3A9168622403787F0014FFF6 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
