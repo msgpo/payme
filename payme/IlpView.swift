@@ -17,9 +17,12 @@ struct IlpView: View {
     @State private var results = ""
     @State private var isToggle : Bool = true
     @State private var showModal: Bool = false
+    @State private var assetScale: UInt32 = 9
     
     @State private var paymentResult: Org_Interledger_Stream_Proto_SendPaymentResponse = Org_Interledger_Stream_Proto_SendPaymentResponse()
     private let ilpClient: IlpClient = IlpClient(grpcURL: "hermes-grpc-test.xpring.dev")
+    
+    public init() {}
     
     var body: some View {
         
@@ -53,10 +56,15 @@ struct IlpView: View {
                     TextField("💳 Account ID ", text: $accountID)
                         .font(Font.system(size: 20, design: .default))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.none)
 
                     SecureField("🔒 Access Token", text: $accessToken)
                         .font(Font.system(size: 20, design: .default))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    NavigationLink(destination: RegisterIlpUserView()) {
+                        Text("Change account info")
+                    }
                 }
             }
             
@@ -66,14 +74,18 @@ struct IlpView: View {
                        }
             
             Button(action: {
-                
-                self.paymentResult = try! self.ilpClient.sendPayment(UInt64(self.amount) ?? 0, to: self.targetid, from: self.accountID, withAuthorization: self.accessToken)
-                let paymentResultString =
-                """
-                - \(self.accountID) -> \(self.targetid) : \(self.paymentResult.amountSent)
-                """
-                self.showModal.toggle()
-                self.results.append(paymentResultString)
+                do {
+                    self.paymentResult = try self.ilpClient.sendPayment(UInt64(self.amount) ?? 0, to: self.targetid, from: self.accountID, withAuthorization: self.accessToken)
+                    
+                    let paymentResultString =
+                    """
+                    - \(self.accountID) -> \(self.targetid) : \(self.paymentResult.amountSent)
+                    """
+                    self.showModal.toggle()
+                    self.results.append(paymentResultString)
+                } catch {
+                    print("Failed to send payment.")
+                }
             })
             {
                 Text("💸 Move").font(Font.system(size: 20, design: .default))
@@ -94,12 +106,19 @@ struct IlpView: View {
             
             Spacer()
         }
+        .onAppear() {
+            let userDefaults = IlpUserAccessService()
+            let ilpUser = userDefaults.getIlpUserFromUserDefault()
+            if (ilpUser != nil) {
+                self.accountID = ilpUser!.accountId
+                self.accessToken = ilpUser!.accessToken
+            }
+        }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.leading, 20)
         .padding(.trailing, 20)
     }
 }
-
 
 struct IlpView_Previews: PreviewProvider {
     static var previews: some View {
