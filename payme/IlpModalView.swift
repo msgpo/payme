@@ -14,6 +14,7 @@ struct IlpModalView: View {
     @Binding var accountID: String
     @Binding var targetID: String
     @Binding var paymentResult: Org_Interledger_Stream_Proto_SendPaymentResponse
+    @Binding var assetScale: UInt32
     
     var body: some View {
         VStack {
@@ -37,9 +38,9 @@ struct IlpModalView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("From: \(self.accountID)")
                 Text("To: \(self.targetID)")
-                Text("Original Amount: \(paymentResult.originalAmount)")
-                Text("Amount Delivered: \(paymentResult.amountDelivered)")
-                Text("Amount Sent: \(paymentResult.amountSent)")
+                Text("Original Amount: \(MoneyUtils.toUserFriendly(realAmount: self.paymentResult.originalAmount, assetScale: self.assetScale))")
+                Text("Amount Delivered: \(MoneyUtils.toUserFriendly(realAmount: self.paymentResult.amountDelivered, assetScale: self.assetScale))")
+                Text("Amount Sent: \(MoneyUtils.toUserFriendly(realAmount: self.paymentResult.amountSent, assetScale: self.assetScale))")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 30)
@@ -60,6 +61,8 @@ struct IlpModalView_Previews: PreviewProvider {
             showModal: .constant(true),
             accountID: .constant(""),
             targetID: .constant(""),
-            paymentResult: .constant(Org_Interledger_Stream_Proto_SendPaymentResponse()))
+            paymentResult: .constant(Org_Interledger_Stream_Proto_SendPaymentResponse()),
+            assetScale: .constant(9)
+        )
     }
 }

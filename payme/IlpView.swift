@@ -75,11 +75,19 @@ struct IlpView: View {
             
             Button(action: {
                 do {
-                    self.paymentResult = try self.ilpClient.sendPayment(UInt64(self.amount) ?? 0, to: self.targetid, from: self.accountID, withAuthorization: self.accessToken)
+                    let scaledAmount = MoneyUtils.toRealIlpAmount(
+                        userFriendlyAmount: UInt32(self.amount) ?? 0,
+                        assetScale: self.assetScale
+                    )
+                    self.paymentResult = try self.ilpClient.sendPayment(scaledAmount, to: self.targetid, from: self.accountID, withAuthorization: self.accessToken)
                     
+                    let scaledSentAmount = MoneyUtils.toUserFriendly(
+                        realAmount: self.paymentResult.amountSent,
+                        assetScale: self.assetScale
+                    )
                     let paymentResultString =
                     """
-                    - \(self.accountID) -> \(self.targetid) : \(self.paymentResult.amountSent)
+                    - \(self.accountID) -> \(self.targetid) : \(scaledSentAmount)
                     """
                     self.showModal.toggle()
                     self.results.append(paymentResultString)
@@ -95,7 +103,8 @@ struct IlpView: View {
                     showModal: self.$showModal,
                     accountID: self.$accountID,
                     targetID: self.$targetid,
-                    paymentResult: self.$paymentResult)
+                    paymentResult: self.$paymentResult,
+                    assetScale: self.$assetScale)
             }
             .buttonStyle(NavButtonStyle(backgroundColor: Color(UIColor.systemGreen)))
             .disabled(self.accessToken.isEmpty || self.targetid.isEmpty || self.amount.isEmpty)
@@ -117,6 +126,17 @@ struct IlpView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.leading, 20)
         .padding(.trailing, 20)
+    }
+}
+
+class MoneyUtils {
+    
+    public static func toUserFriendly(realAmount: UInt64, assetScale: UInt32) -> UInt64 {
+        return realAmount / UInt64(pow(Double(10), Double(assetScale)))
+    }
+    
+    public static func toRealIlpAmount(userFriendlyAmount: UInt32, assetScale: UInt32) -> UInt64 {
+        return UInt64(userFriendlyAmount) * UInt64(pow(Double(10), Double(assetScale)))
     }
 }
 
