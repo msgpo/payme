@@ -62,7 +62,7 @@ struct IlpView: View {
                         .font(Font.system(size: 20, design: .default))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    NavigationLink(destination: RegisterIlpUserView()) {
+                    NavigationLink(destination: RegisterIlpUserView(isUpdate: true)) {
                         Text("Change account info")
                     }
                 }
