@@ -13,7 +13,7 @@ struct IlpModalView: View {
     @Binding var showModal: Bool
     @Binding var accountID: String
     @Binding var targetID: String
-    @Binding var paymentResult: Org_Interledger_Stream_Proto_SendPaymentResponse
+    @Binding var paymentResult: PaymentResult
     @Binding var assetScale: UInt32
     
     var body: some View {
@@ -61,7 +61,7 @@ struct IlpModalView_Previews: PreviewProvider {
             showModal: .constant(true),
             accountID: .constant(""),
             targetID: .constant(""),
-            paymentResult: .constant(Org_Interledger_Stream_Proto_SendPaymentResponse()),
+            paymentResult: .constant(PaymentResult(sendPaymentResponse: Org_Interledger_Stream_Proto_SendPaymentResponse())),
             assetScale: .constant(9)
         )
     }

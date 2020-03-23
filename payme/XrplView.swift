@@ -72,7 +72,7 @@ public class WalletAction
     {
         let remoteURL = "main.xrp.xpring.io:50051"
         
-        let xpringClient = XpringClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
+        let xpringClient = XRPClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
         
         let udrops = UInt64(drops)! * 1000000
         

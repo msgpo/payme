@@ -19,7 +19,7 @@ struct IlpView: View {
     @State private var showModal: Bool = false
     @State private var assetScale: UInt32 = 9
     
-    @State private var paymentResult: Org_Interledger_Stream_Proto_SendPaymentResponse = Org_Interledger_Stream_Proto_SendPaymentResponse()
+    @State private var paymentResult = PaymentResult(sendPaymentResponse: Org_Interledger_Stream_Proto_SendPaymentResponse())
     private let ilpClient: IlpClient = IlpClient(grpcURL: "hermes-grpc-test.xpring.dev")
     
     public init() {}
@@ -79,7 +79,14 @@ struct IlpView: View {
                         userFriendlyAmount: UInt32(self.amount) ?? 0,
                         assetScale: self.assetScale
                     )
-                    self.paymentResult = try self.ilpClient.sendPayment(scaledAmount, to: self.targetid, from: self.accountID, withAuthorization: self.accessToken)
+                    
+                    let paymentRequest = PaymentRequest(
+                        scaledAmount,
+                        to: self.targetid.trimmingCharacters(in: .whitespacesAndNewlines),
+                        from: self.accountID
+                    )
+                    
+                    self.paymentResult = try self.ilpClient.sendPayment(paymentRequest, withAuthorization: self.accessToken)
                     
                     let scaledSentAmount = MoneyUtils.toUserFriendly(
                         realAmount: self.paymentResult.amountSent,
