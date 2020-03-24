@@ -47,7 +47,7 @@ public class WalletAction
         
         var request = URLRequest(url: url)
         
-        request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
+        request.addValue("application/xrpl-mainet+json", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: request) {
             
@@ -57,7 +57,7 @@ public class WalletAction
                 
                 let decodedResponse = try! JSONDecoder().decode(XRPJSONResult.self, from: data)
                 
-                completion(decodedResponse.address)
+                completion(decodedResponse.addressDetails.address)
                 
             }
         }.resume()
@@ -65,6 +65,11 @@ public class WalletAction
     }
     
     struct XRPJSONResult: Codable {
+        var addressDetailType : String
+        var addressDetails : AddressDetails
+    }
+    struct AddressDetails : Codable
+    {
         var address: String
     }
     
