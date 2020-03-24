@@ -68,9 +68,15 @@ public class WalletAction
         var addressDetailType : String
         var addressDetails : AddressDetails
     }
+<<<<<<< Updated upstream
     struct AddressDetails : Codable
     {
         var address: String
+=======
+    
+    struct AddressDetails : Codable {
+        var address : String
+>>>>>>> Stashed changes
     }
     
     static func moveXrp(source: Wallet, target: String, drops: String) -> String
