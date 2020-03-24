@@ -49,6 +49,7 @@ public class WalletAction
         
         request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
         
+        
         URLSession.shared.dataTask(with: request) {
             
             data, response, error in
@@ -57,7 +58,7 @@ public class WalletAction
                 
                 let decodedResponse = try! JSONDecoder().decode(XRPJSONResult.self, from: data)
                 
-                completion(decodedResponse.address)
+                completion(decodedResponse.addressDetails.address)
                 
             }
         }.resume()
@@ -65,14 +66,19 @@ public class WalletAction
     }
     
     struct XRPJSONResult: Codable {
-        var address: String
+        var addressDetailType : String
+        var addressDetails : AddressDetails
+    }
+    
+    struct AddressDetails : Codable {
+        var address : String
     }
     
     static func moveXrp(source: Wallet, target: String, drops: String) -> String
     {
         let remoteURL = "main.xrp.xpring.io:50051"
         
-        let xpringClient = XRPClient(grpcURL: remoteURL, useNewProtocolBuffers: true)
+        let xpringClient = DefaultXRPClient(grpcURL: remoteURL)
         
         let udrops = UInt64(drops)! * 1000000
         
