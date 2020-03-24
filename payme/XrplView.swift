@@ -47,7 +47,7 @@ public class WalletAction
         
         var request = URLRequest(url: url)
         
-        request.addValue("application/xrpl-mainet+json", forHTTPHeaderField: "Accept")
+        request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
         
         
         URLSession.shared.dataTask(with: request) {
@@ -69,15 +69,9 @@ public class WalletAction
         var addressDetailType : String
         var addressDetails : AddressDetails
     }
-<<<<<<< Updated upstream
-    struct AddressDetails : Codable
-    {
-        var address: String
-=======
     
     struct AddressDetails : Codable {
         var address : String
->>>>>>> Stashed changes
     }
     
     static func moveXrp(source: Wallet, target: String, drops: String) -> String
