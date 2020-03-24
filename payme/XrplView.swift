@@ -18,7 +18,7 @@ public class WalletAction
         return completion(seedWallet)
     }
     
-    static func getXrpAddressFromPayID(_ id: String, completion: @escaping (_ xAddress: String) -> Void)
+    static func getXrpAddressFromPayID(_ id: String, useMainnet: Bool, completion: @escaping (_ xAddress: String) -> Void)
     {
         var payIdUrl = id
         let isPayID = id.starts(with: "$")
@@ -47,8 +47,14 @@ public class WalletAction
         
         var request = URLRequest(url: url)
         
-        request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
-        
+        if (useMainnet)
+        {
+            request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
+        }
+        else
+        {
+            request.addValue("application/xrpl-testnet+json", forHTTPHeaderField: "Accept")
+        }
         
         URLSession.shared.dataTask(with: request) {
             
@@ -74,9 +80,15 @@ public class WalletAction
         var address : String
     }
     
-    static func moveXrp(source: Wallet, target: String, drops: String) -> String
+    static func moveXrp(source: Wallet, target: String, drops: String, useMainnet: Bool) -> String
     {
-        let remoteURL = "main.xrp.xpring.io:50051"
+        
+        var remoteURL = "main.xrp.xpring.io:50051"
+        
+        if(!useMainnet)
+        {
+            remoteURL = "test.xrp.xpring.io:50051"
+        }
         
         let xpringClient = DefaultXRPClient(grpcURL: remoteURL)
         
@@ -104,7 +116,7 @@ struct XrplView: View {
     @State private var amount: String = ""
     @State private var selectedMethod = 0
     @State private var results = ""
-    @State private var isToggle : Bool = true
+    @State private var isToggle : Bool = false
     
     var body: some View {
     
@@ -157,11 +169,11 @@ struct XrplView: View {
 
                                 senderWallet in
 
-                                WalletAction.getXrpAddressFromPayID(self.targetid) {
+                                WalletAction.getXrpAddressFromPayID(self.targetid, useMainnet: self.isToggle) {
 
                                     targetAddress in
 
-                                    let results = WalletAction.moveXrp(source: senderWallet, target: targetAddress, drops: self.amount)
+                                    let results = WalletAction.moveXrp(source: senderWallet, target: targetAddress, drops: self.amount, useMainnet: self.isToggle)
 
                                     self.results.append(results)
 
