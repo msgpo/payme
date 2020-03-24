@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import XpringKit
 
 struct NavButtonStyle: ButtonStyle {
     let backgroundColor: Color
@@ -26,6 +27,12 @@ struct NavButtonStyle: ButtonStyle {
 struct ContentView: View {
     //#todo: get these from the payid provider
     var methods = ["XRP", "ILP/XRP", "ILP/BTC", "ILP/ETH"]
+    let userDefaults = IlpUserAccessService()
+    
+    @EnvironmentObject var userRegistered: UserRegistered
+    
+    private var ilpClient : IlpClient = IlpClient(grpcURL: "hermes-grpc-test.xpring.dev")
+   
     
     var body: some View {
         VStack {
@@ -57,22 +64,41 @@ struct ContentView: View {
                                     )
                                 
                                 } else {
-                                    NavigationLink(destination: IlpView()) {
-                                        HStack {
-                                            Image("interledger")
-                                                .renderingMode(.original)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 30, height: 30)
-                                                .clipShape(Circle())
-                                            Text(method)
-                                                .fontWeight(.bold)
-                                        }
-                                    }.buttonStyle(
-                                        NavButtonStyle(
-                                            backgroundColor: Color(UIColor.systemGreen)
+                                    if (self.userRegistered.get()) {
+                                        NavigationLink(destination: IlpView()) {
+                                            HStack {
+                                                Image("interledger")
+                                                    .renderingMode(.original)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 30, height: 30)
+                                                    .clipShape(Circle())
+                                                Text(method)
+                                                    .fontWeight(.bold)
+                                            }
+                                        }.buttonStyle(
+                                            NavButtonStyle(
+                                                backgroundColor: Color(UIColor.systemGreen)
+                                            )
                                         )
-                                    )
+                                    } else {
+                                        NavigationLink(destination: RegisterIlpUserView()) {
+                                            HStack {
+                                                Image("interledger")
+                                                    .renderingMode(.original)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 30, height: 30)
+                                                    .clipShape(Circle())
+                                                Text(method)
+                                                    .fontWeight(.bold)
+                                            }
+                                        }.buttonStyle(
+                                            NavButtonStyle(
+                                                backgroundColor: Color(UIColor.systemGreen)
+                                            )
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -83,7 +109,12 @@ struct ContentView: View {
                 }
             }
         }
-        
+        .onAppear() {
+            let ilpUser = self.userDefaults.getIlpUserFromUserDefault()
+            if (ilpUser != nil) {
+                self.userRegistered.set(true)
+            }
+        }
     }
 }
 
