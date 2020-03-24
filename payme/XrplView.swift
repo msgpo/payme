@@ -102,7 +102,7 @@ public class WalletAction
         
         let retval = (txn: transactionHash.description, status: success.description)
         
-        return "[txn: \(retval.txn) status: \(retval.status)] \r\n"
+        return "[txn: \(retval.txn)] \r\n"
     }
     
 }
