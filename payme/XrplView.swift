@@ -49,6 +49,7 @@ public class WalletAction
         
         request.addValue("application/xrpl-mainnet+json", forHTTPHeaderField: "Accept")
         
+        
         URLSession.shared.dataTask(with: request) {
             
             data, response, error in
